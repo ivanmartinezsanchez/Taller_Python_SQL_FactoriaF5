@@ -8,10 +8,11 @@ load_dotenv()  # lee el archivo .env y deja sus datos disponibles para os.getenv
 # 1. CONECTAR
 conexion = mysql.connector.connect(
     host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT"),
+    port=int(os.getenv("DB_PORT", "3306")),
     user=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD"),
     database=os.getenv("DB_NAME"),
+    use_pure=True,  # Usa el conector en Python; evita el fallo de la extensión nativa.
 )
 # El cursor envía las consultas. Con dictionary=True cada fila es un diccionario.
 cursor = conexion.cursor(dictionary=True)
